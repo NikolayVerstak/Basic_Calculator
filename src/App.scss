@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Nunito:wght@400;600;700&display=swap");
+
+body {
+    margin: 0;
+    padding: 0;
+    background: rgb(136, 150, 150);
+    min-height: 100vh;
+
+    /* Variables for buttons grid width and font size of displayed result */
+    --button-grid-width: clamp(280px, 61vw, 300px);
+    --screen-font-size: clamp(1.8rem, 6.4vw, 2rem);
+
+    display: grid;
+    place-items: center;
+}
+
+/* Calculator container */
+.calculator {
+    height: max-content;
+    width: max-content;
+    position: relative;
+    background-image: linear-gradient(45deg, #a5b6b6 25%, #dad2c4 100%);
+    border-radius: 0.5rem;
+    border: 1px solid #414141a9;
+    padding: clamp(1.3rem, 4.7vw, 1.5rem);
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+    /* Screen section */
+    & .screen {
+        font-family: "Black Ops One", cursive;
+        font-weight: 500;
+
+        width: var(--button-grid-width);
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+
+        border: 1px solid #2d302e9a;
+        border-radius: 4px;
+
+        background: #a1c4b075;
+        box-sizing: border-box;
+        box-shadow: #2d302eb4 2px 2px 3px;
+        padding: 0.5rem;
+        padding-bottom: 0.2rem;
+        margin-bottom: 1.3rem;
+
+        /* Expression line */
+        & .expression {
+            font-size: calc(var(--screen-font-size) / 2);
+            line-height: calc(var(--screen-font-size) / 2);
+        }
+
+        /* Enter digit or Result of calculation or  */
+        & #display {
+            font-size: var(--screen-font-size);
+            line-height: var(--screen-font-size);
+        }
+    }
+
+    /* Buttons section */
+    & .buttons {
+        font-weight: 700;
+        font-size: 1.5rem;
+        width: var(--button-grid-width);
+
+        --grid-gap: clamp(0.5rem, 2vw, 0.7rem);
+        display: grid;
+        grid-auto-rows: 50px;
+        grid-template-columns: repeat(4, calc((100% - 3 * var(--grid-gap)) / 4));
+        gap: var(--grid-gap);
+        grid-template-areas:
+            "clear clear percentage divide"
+            "seven eight nine multiply"
+            "four five six subtract"
+            "one two three add"
+            "zero decimal equals equals";
+
+        & button {
+            display: grid;
+            place-items: center;
+
+            color: #d2d9df;
+            font-family: "Nunito", sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+
+            border-radius: 4px;
+            border-style: solid;
+            border-color: #737c7cfd;
+            border-width: 0px 1px 1px 0px;
+            box-shadow: #2d302ef1 2px 2px 2px;
+            background: #303333;
+            cursor: pointer;
+
+            &:hover {
+                border-width: 1px 0px 0px 1px;
+                box-shadow: #2d302ef1 1px 1px 1px;
+                box-shadow: none;
+            }
+
+            /* Color operators +, -, /, * when they are clicked */
+            &.selected {
+                background: rgb(78, 145, 117);
+            }
+        }
+
+        /* Define grid areas for buttons */
+        $button-areas: (
+            clear,
+            percentage,
+            divide,
+            multiply,
+            subtract,
+            add,
+            decimal,
+            equals,
+            zero,
+            one,
+            two,
+            three,
+            four,
+            five,
+            six,
+            seven,
+            eight,
+            nine
+        );
+        @each $area in $button-areas {
+            ##{$area} {
+                grid-area: #{$area};
+            }
+        }
+    }
+}
